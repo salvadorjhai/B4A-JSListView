@@ -36,15 +36,8 @@ LV.Adapter = Adapter
 * Click event will also not be triggered if your viewholder.container contains buttons.
 
 ### FAQ
-* How to click items when your viewholder.container contains buttons? *- (see With Button Sample project)*
-```
-Sub lblDrugname_Click
-	Dim lbl As Label = Sender
-	Dim position As Int = lbl.Tag
-	ToastMessageShow($"You clicked on item index ${position}"$, False)
-End Sub
-```
-* How to handle the events of my views (buttons, label, imageview, etc) inside viewholder.container? - *on the `_onBindView(position As Int, viewHolder As JSViewHolder)` of your adapter, just remember the position and set it to tag property of your views.*
+* How to click items when your viewholder.container contains buttons? 
+* How to handle the events of my views (buttons, label, imageview, etc) inside viewholder.container? - *on the `_onBindView(position As Int, viewHolder As JSViewHolder)` of your adapter, just remember the position and set it to tag property of your views - (checkout With Button Sample project) * 
 ```
 btnMinus.Tag = position
 ```
