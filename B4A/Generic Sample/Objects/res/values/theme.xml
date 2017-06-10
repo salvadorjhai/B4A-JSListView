@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">#E91E63</item>
+        <item name="colorPrimaryDark">#C2185B</item>
+        <item name="colorAccent">#FF5252</item>
+        <item name="windowNoTitle">false</item>
+        <item name="windowActionBar">true</item>
+		<item name="windowActionModeOverlay">true</item>		
+    </style>
+</resources>

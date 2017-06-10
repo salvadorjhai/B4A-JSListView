@@ -1,0 +1,252 @@
+﻿Version=6.5
+NumberOfModules=1
+Module1=DetailedView
+Build1=Default,de.amberhome.appcompat.basicexample
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.basic4ppc.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="7" android:targetSdkVersion="21"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~SetApplicationAttribute(android:theme, "@style/MyAppTheme")~\n~~\n~CreateResource(values, theme.xml,~\n~<resources>~\n~    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">~\n~        <item name="colorPrimary">#0098FF</item>~\n~        <item name="colorPrimaryDark">#007CF5</item>~\n~        <item name="colorAccent">#AAAA00</item>~\n~        <item name="windowNoTitle">true</item>~\n~        <item name="windowActionBar">false</item>~\n~    </style>~\n~</resources>~\n~)
+IconFile=
+NumberOfFiles=8
+File1=DetailedView.bal
+File2=lay_scrollview.bal
+File3=layout1.bal
+File4=layout2.bal
+File5=mock_data.json
+File6=recipes.json
+File7=twolineandbitmap.bal
+File8=twolineandbitmapbuttons.bal
+NumberOfLibraries=5
+Library1=core
+Library2=appcompat
+Library3=jslistview
+Library4=json
+Library5=picasso
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: AppCompat Basics
+	#VersionCode: 2
+	#VersionName: 3.20
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Extends: android.support.v7.app.AppCompatActivity
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+	Private sv As ACSearchView
+	Private si As ACMenuItem
+
+	Private ImageView1 As ImageView
+	Private Label1 As Label
+	Private Label2 As Label
+	Dim recipes As List
+	Dim filtered As List
+	Private JSListView1 As JSListView
+	Private ACToolBarDark1 As ACToolBarDark
+	Private btnViewDetails As Button
+	Private btnRemoveDetails As Button
+End Sub
+
+'Inline Java code to initialize the Menu
+#If Java
+	public boolean _onCreateOptionsMenu(android.view.Menu menu) {
+		if (processBA.subExists("activity_createmenu")) {
+			processBA.raiseEvent2(null, true, "activity_createmenu", false, new de.amberhome.objects.appcompat.ACMenuWrapper(menu));
+			return true;
+		}
+		else
+			return false;
+	}
+#End If
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	Activity.LoadLayout("layout2")
+	
+	Dim js As JSONParser
+	js.Initialize(File.ReadString(File.DirAssets, "MOCK_DATA.json"))
+	recipes = js.NextArray
+
+	JSListView1.DataSource = recipes
+	JSListView1.FastScrollEnabled = True
+	
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+'This is the Sub called by the inline Java code to initialize the Menu
+Sub Activity_CreateMenu(Menu As ACMenu)
+	sv.Initialize2("Search", sv.THEME_DARK)
+	sv.IconifiedByDefault = True
+
+	'Clear the menu
+    Menu.Clear
+	
+	'Add a menu item and assign the SearchView to it
+    si = Menu.Add2(1, 1, "Search", Null)
+    si.SearchView = sv
+	
+	'
+	'Menu.Add(2, 2, "Refresh", Null)
+End Sub
+
+'If the user submits a search then this event sub is called
+Sub Search_QuerySubmitted (Query As String)
+	filtered.Initialize
+	
+	For i = 0 To recipes.Size - 1
+		Dim mapper As Map = recipes.Get(i)
+		Dim value As String = mapper.Get("fullname")
+		If value.ToLowerCase.Contains(Query.ToLowerCase) Then
+			filtered.Add(mapper)
+		End If
+	Next
+	If filtered.Size <> 0 Then
+		JSListView1.DataSource = filtered
+	Else
+		JSListView1.DataSource = recipes
+	End If
+	
+    sv.Iconfied = True
+    si.ItemCollapsed = True
+   
+    Log("Search for '" & Query & "'")
+End Sub
+
+Sub Search_Closed
+	Log("SearchView closed")
+End Sub
+
+Sub Search_QueryChanged (Query As String)
+	Log("Query changed: " & Query)
+End Sub
+
+Sub JSListView1_OnGetView(position As Int, itemLayout As ItemViewLayout, forViewUpdate As Boolean)
+	Try
+		Dim iv As ItemViewLayout = itemLayout
+
+		Dim p As Panel
+		If forViewUpdate = False Then
+			p.Initialize("")
+			p.LoadLayout("twolineandbitmapbuttons")
+			iv.Container = p
+
+			' use setViewId. B4A does not support this natively so will just rely on this function for now.
+			iv.setViewId(Label1, 1)
+			iv.setViewId(Label2, 2)
+			iv.setViewId(ImageView1, 3)
+			iv.setViewId(btnViewDetails, 4)
+			iv.setViewId(btnRemoveDetails, 5)
+		
+			Label1.Width = 100%x - Label1.Left - 10dip
+			Label2.Width = 100%x - Label2.Left - 10dip
+		
+			Label1.Gravity = Gravity.TOP
+			Label2.Gravity = Gravity.TOP
+		
+			'
+			iv.Height = ImageView1.Top + ImageView1.Height + 10dip
+			iv.Width = 100%x
+						
+			Label1.Height = 15dip
+			Label2.Top = Label1.Top + Label1.Height
+			Label2.Height = iv.Height - Label2.Top - 10dip
+		
+			' adjust height
+			iv.Height = btnRemoveDetails.Top + btnRemoveDetails.Height
+		End If
+		
+		' get data to map
+		Dim mapper As Map = JSListView1.DataSource.Get(position)
+	
+		' find our views
+		Label1 = iv.findViewById(1)
+		Label2 = iv.findViewById(2)
+		ImageView1 = iv.findViewById(3)
+		btnViewDetails = iv.findViewById(4)
+		btnRemoveDetails = iv.findViewById(5)
+     
+		' display some values
+		Label1.Text =  $"(${mapper.Get("id")}) ${mapper.Get("fullname")} - ${mapper.Get("job_title")}"$
+		Label2.Text = mapper.Get("slogan")
+
+		' assign other data to tag properties
+		ImageView1.Tag = mapper
+		btnViewDetails.Tag = mapper
+		btnRemoveDetails.Tag = position
+	
+		' or you can assign the position and access this data using JSListView1.DataSource.Get(position)
+		'ImageView1.Tag = position
+		'btnViewDetails.Tag = position
+		'btnRemoveDetails.Tag = position
+	
+		' load image async
+		Dim picaso As Picasso
+		picaso.Initialize
+		picaso.LoadUrl(mapper.Get("avatar")).Resize(ImageView1.Width,ImageView1.Height).CenterCrop.IntoImageView(ImageView1)
+
+	
+	Catch
+		Log(LastException)
+	End Try
+End Sub
+
+Sub JSListView1_OnItemClick(view As ItemViewLayout, position As Int)
+	Log(GetType(view))
+	
+	ToastMessageShow($"JSListView1_OnItemClick @ position: ${position}"$, False)
+	
+'	DetailedView.mapper = JSListView1.DataSource.Get(position)
+'	StartActivity(DetailedView)
+	
+End Sub
+
+Sub JSListView1_OnItemLongClick(view As ItemViewLayout, position As Int)
+	Log(GetType(view))
+	ToastMessageShow($"JSListView1_OnItemLongClick @ position: ${position}"$, False)
+End Sub
+
+
+Sub ACToolBarDark1_NavigationItemClick
+	
+End Sub
+
+Sub ACToolBarDark1_MenuItemClick (Item As ACMenuItem)
+	
+End Sub
+
+Sub btnViewDetails_Click
+	Dim btn As Button = Sender
+	DetailedView.mapper = btn.Tag
+	StartActivity(DetailedView)
+End Sub
+
+Sub btnRemoveDetails_Click
+	Dim btn As Button = Sender
+	Dim index As Long = btn.Tag
+	JSListView1.ItemRemoveAt(index)
+End Sub
+
+Sub ImageView1_Click
+	Dim btn As ImageView = Sender
+	DetailedView.mapper = btn.Tag
+	StartActivity(DetailedView)
+End Sub

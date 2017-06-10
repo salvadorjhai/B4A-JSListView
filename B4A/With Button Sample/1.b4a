@@ -1,0 +1,160 @@
+﻿Version=6.5
+NumberOfModules=1
+Module1=Starter
+Build1=Default,b4a.example
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
+IconFile=
+NumberOfFiles=2
+File1=drug_list.json
+File2=layout.bal
+NumberOfLibraries=4
+Library1=core
+Library2=jslistview
+Library3=json
+Library4=jsdataadapter
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: With Button Sample
+	#VersionCode: 1
+	#VersionName: 
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: False
+	#IncludeTitle: True
+#End Region
+
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Dim adapter As JSListAdapter
+End Sub
+
+Sub Globals
+	'These global variables will be redeclared each time the activity is created.
+	'These variables can only be accessed from this module.
+	Dim lv As JSListView2
+	
+	Private btnAdd As Button
+	Private btnMinus As Button
+	Private imgAvatar As ImageView
+	Private lblDrugname As Label
+	Private lblQuantity As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	'Do not forget to load the layout file created with the visual designer. For example:
+	'Activity.LoadLayout("Layout1")
+	Dim json As JSONParser
+	json.Initialize(File.ReadString(File.DirAssets, "drug_list.json"))
+	Dim dataSource As List = json.NextArray
+	'initialize adapter
+	adapter.Initialize("adapter", dataSource)
+
+	'initialize listview
+	lv.Initialize("LV")
+	Activity.AddView(lv, 0dip, 0dip, 100%x, 100%y)
+	
+	'set adapter
+	lv.Adapter = adapter
+	lv.CacheColorHint = 0
+	lv.FastScrollEnabled = True
+End Sub
+
+Sub Activity_Resume
+
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub adapter_onGetView(position As Int, viewHolder As JSViewHolder)
+	'we will load new layout if container is null
+	If viewHolder.Container	= Null Then
+		'load layout container (item layout)
+		Dim p As Panel
+		p.Initialize("")
+		p.LoadLayout("layout")
+		viewHolder.Initialize(p, 110dip, 100%x)
+		
+		'set layout
+		lblDrugname.Width = 100%x - lblDrugname.Left - 10dip
+		lblDrugname.Gravity = Bit.Or(Gravity.LEFT, Gravity.CENTER_HORIZONTAL)
+		lblQuantity.Gravity = Gravity.CENTER
+		
+		'set view id
+		viewHolder.setViewId(imgAvatar, 10)
+		viewHolder.setViewId(lblDrugname, 20)
+		viewHolder.setViewId(lblQuantity, 30)
+		viewHolder.setViewId(btnAdd, 40)
+		viewHolder.setViewId(btnMinus, 50)		
+	End If
+End Sub
+
+Sub LV_OnItemClick(view As JSViewHolder, position As Int)
+	'not working with button so use another method (like clicking label for example)
+	ToastMessageShow($"You clicked on item ${position}"$, False)
+End Sub
+
+Sub LV_OnItemLongClick(view As JSViewHolder, position As Int)
+	'not working with button so use another method (like clicking label for example)
+	ToastMessageShow($"You long clicked on item ${position}"$, False)
+End Sub
+
+Sub adapter_onBindView(position As Int, viewHolder As JSViewHolder)
+	If viewHolder.Container = Null Then Return
+	
+	'find view
+	imgAvatar = viewHolder.findViewById(10)
+	lblDrugname = viewHolder.findViewById(20)
+	lblQuantity = viewHolder.findViewById(30)
+	btnAdd = viewHolder.findViewById(40)
+	btnMinus = viewHolder.findViewById(50)
+	
+	'bind data to view
+	Dim mapData As Map = adapter.DataSource.Get(position)
+	lblDrugname.Text = mapData.Get("drug_name")
+	lblQuantity.Text = mapData.Get("quantity")
+	btnAdd.Tag = position
+	btnMinus.Tag = position
+	lblDrugname.Tag = position
+End Sub
+
+
+Sub btnMinus_Click
+	Dim btn As Button = Sender
+	Dim position As Int = btn.Tag
+	
+	Dim mapData As Map = adapter.getItem(position)
+	Dim qty As Int = mapData.Get("quantity")
+	
+	' modify data
+	qty = qty - 1
+	mapData.Put("quantity", qty)
+	
+	adapter.ItemUpdateAt(position, mapData)	
+End Sub
+
+Sub btnAdd_Click
+	Dim btn As Button = Sender
+	Dim position As Int = btn.Tag
+	
+	Dim mapData As Map = adapter.getItem(position)
+	Dim qty As Int = mapData.Get("quantity")
+	
+	' modify data
+	qty = qty + 1
+	mapData.Put("quantity", qty)
+	
+	adapter.ItemUpdateAt(position, mapData)
+End Sub
+
+Sub lblDrugname_Click
+	Dim lbl As Label = Sender
+	Dim position As Int = lbl.Tag
+	ToastMessageShow($"You clicked on item index ${position}"$, False)
+End Sub
