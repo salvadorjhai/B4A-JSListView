@@ -2,7 +2,7 @@
 Listview Wrapper for B4A (Basic4Android)
 Requires List or Cursor Adapter - [JSDataAdapter](https://github.com/salvadorjhai/B4A-JSDataAdapter)
 
-Copy .jar, .xml to your additional library folder
+==Copy .jar, .xml to your additional library folder==
 
 The provided sample (source) (Generic Sample folder) requires additional library:
 * AppCompat
@@ -11,6 +11,9 @@ The provided sample (source) (Generic Sample folder) requires additional library
 * SQLiteDatabase (private, use SQL library instead)
 
 You can find the additional library in [B4A Forum](https://b4x.com/android/forum/#b4a-development-tool-for-native-android-apps.25)
+
+![sample demo](screenshots/0.png)  ![with picasso](screenshots/3.png) ![with appcompath and buttons](screenshots/7.png)
+
 
 ### Sample
 ##### Using List Adapter 
@@ -35,7 +38,7 @@ LV.Adapter = Adapter
 * click/ripple effect on the item will not work if your viewholder.container contains buttons.
 * Click event will also not be triggered if your viewholder.container contains buttons.
 
-### FAQ
+### FAQ 
 * How to click items when your viewholder.container contains buttons? 
 * How to handle the events of my views (buttons, label, imageview, etc) inside viewholder.container? - *on the `_onBindView(position As Int, viewHolder As JSViewHolder)` of your adapter, just remember the position and set it to tag property of your views - (checkout With Button Sample project) * 
 ```
