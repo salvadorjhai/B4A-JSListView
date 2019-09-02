@@ -1,7 +1,8 @@
-﻿Type=Activity
-Version=7
+﻿B4A=true
+Group=Default Group
 ModulesStructureVersion=1
-B4A=true
+Type=Activity
+Version=7
 @EndOfDesignText@
 #Region  Activity Attributes 
 	#FullScreen: False

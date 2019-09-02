@@ -1,17 +1,21 @@
-﻿Version=6.5
-NumberOfModules=1
-Module1=Starter
-Build1=Default,b4a.example
-ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
-IconFile=
-NumberOfFiles=2
+﻿Build1=Default,b4a.example
 File1=drug_list.json
 File2=layout.bal
-NumberOfLibraries=4
+FileGroup1=Default Group
+FileGroup2=Default Group
+Group=Default Group
+IconFile=
 Library1=core
 Library2=jslistview
 Library3=json
 Library4=jsdataadapter
+Library5=picasso
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="19"/>~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~
+Module1=Starter
+NumberOfFiles=2
+NumberOfLibraries=5
+NumberOfModules=1
+Version=9.3
 @EndOfDesignText@
 #Region  Project Attributes 
 	#ApplicationLabel: With Button Sample
@@ -60,8 +64,8 @@ Sub Activity_Create(FirstTime As Boolean)
 	
 	'set adapter
 	lv.Adapter = adapter
-	lv.CacheColorHint = 0
-	lv.FastScrollEnabled = True
+	lv.setCacheColorHint(0)
+	lv.setFastScrollEnabled(True)
 End Sub
 
 Sub Activity_Resume
@@ -79,7 +83,7 @@ Sub adapter_onGetView(position As Int, viewHolder As JSViewHolder)
 		Dim p As Panel
 		p.Initialize("")
 		p.LoadLayout("layout")
-		viewHolder.Initialize(p, 110dip, 100%x)
+		viewHolder.Initialize(p, 140dip, 100%x)
 		
 		'set layout
 		lblDrugname.Width = 100%x - lblDrugname.Left - 10dip
@@ -119,6 +123,11 @@ Sub adapter_onBindView(position As Int, viewHolder As JSViewHolder)
 	Dim mapData As Map = adapter.DataSource.Get(position)
 	lblDrugname.Text = mapData.Get("drug_name")
 	lblQuantity.Text = mapData.Get("quantity")
+	
+	Dim picaso As Picasso
+	picaso.Initialize
+	picaso.LoadUrl(mapData.Get("image")).Resize(imgAvatar.Width,imgAvatar.Height).CenterCrop.IntoImageView(imgAvatar)
+	
 	btnAdd.Tag = position
 	btnMinus.Tag = position
 	lblDrugname.Tag = position

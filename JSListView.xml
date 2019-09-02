@@ -4,28 +4,124 @@
     <class>
         <name>com.salvadorjhai.widgets.JSListView2</name>
         <shortname>JSListView2</shortname>
-        <comment>JSListView2 base on Android Listview.
- You can use designer to create your item layout, just inflate this layout using panel LoadLayout.
- Use this listview together with JSListAdapter or JSCursorAdapter</comment>
+        <comment>JSListView2 base on Android Listview. You can use designer to create your
+ item layout, just inflate the item layout using panel LoadLayout. Use this
+ JSListView2 together with JSListAdapter or JSCursorAdapter</comment>
         <objectwrapper>android.widget.ListView</objectwrapper>
         <owner>activity</owner>
         <event>OnItemClick(view As JSViewHolder, position As int)</event>
         <event>OnItemLongClick(view As JSViewHolder, position As int)</event>
         <method>
-            <name>IsFastScrollEnabled</name>
-            <comment>Returns true if the fast scroller is enabled.
-Return type: @return:true if fast scroll is enabled, false otherwise</comment>
-            <returntype>boolean</returntype>
+            <name>setFooterDividersEnabled</name>
+            <comment>Sets the footer dividers enabled.
+footerDividersEnabled: the new footer dividers enabled</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>footerDividersEnabled</name>
+                <type>boolean</type>
+            </parameter>
         </method>
         <method>
-            <name>BringToFront</name>
+            <name>DesignerCreateView</name>
             <comment></comment>
             <returntype>void</returntype>
+            <parameter>
+                <name>paramPanelWrapper</name>
+                <type>anywheresoftware.b4a.objects.PanelWrapper</type>
+            </parameter>
+            <parameter>
+                <name>paramLabelWrapper</name>
+                <type>anywheresoftware.b4a.objects.LabelWrapper</type>
+            </parameter>
+            <parameter>
+                <name>paramMap</name>
+                <type>anywheresoftware.b4a.objects.collections.Map</type>
+            </parameter>
         </method>
         <method>
-            <name>RequestFocus</name>
+            <name>smoothScrollToPosition</name>
+            <comment>Smooth scroll to position.
+position: the position</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>position</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>IsInitialized</name>
             <comment></comment>
             <returntype>boolean</returntype>
+        </method>
+        <method>
+            <name>Initialize</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>ba</name>
+                <type>anywheresoftware.b4a.BA</type>
+            </parameter>
+            <parameter>
+                <name>eventName</name>
+                <type>java.lang.String</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setOverscrollFooter</name>
+            <comment>Sets the overscroll footer.
+footer: the new overscroll footer</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>footer</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+        </method>
+        <method>
+            <name>SetLayout</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg3</name>
+                <type Pixel="true">int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>smoothScrollByOffset</name>
+            <comment>Smooth scroll by offset.
+offset: the offset</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>offset</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>IsFastScrollAlwaysVisible</name>
+            <comment>Returns true if the fast scroller is set to always show on this view.
+Return type: @return:true if the fast scroller will always show</comment>
+            <returntype>boolean</returntype>
+        </method>
+        <method>
+            <name>setHeaderDividersEnabled</name>
+            <comment>Sets the header dividers enabled.
+headerDividersEnabled: the new header dividers enabled</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>headerDividersEnabled</name>
+                <type>boolean</type>
+            </parameter>
         </method>
         <method>
             <name>RemoveView</name>
@@ -33,12 +129,26 @@ Return type: @return:true if fast scroll is enabled, false otherwise</comment>
             <returntype>void</returntype>
         </method>
         <method>
-            <name>SetBackgroundImage</name>
-            <comment></comment>
-            <returntype>void</returntype>
+            <name>setFastScrollEnabled</name>
+            <comment>Specifies whether fast scrolling is enabled or disabled.
+enabled: boolean: true to enable fast scrolling, false otherwise</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
             <parameter>
-                <name>arg0</name>
-                <type>android.graphics.Bitmap</type>
+                <name>enabled</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setCacheColorHint</name>
+            <comment>When set to a non-zero value, the cache color hint indicates that this
+ list is always drawn on top of a solid, single-color, opaque background.
+ Zero means that what's behind this object is translucent (non solid) or
+ is not made of a single color.
+color: Color</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>color</name>
+                <type>int</type>
             </parameter>
         </method>
         <method>
@@ -72,80 +182,51 @@ Return type: @return:true if fast scroll is enabled, false otherwise</comment>
             </parameter>
         </method>
         <method>
-            <name>addHeaderView</name>
-            <comment>Add a fixed view to appear at the top of the list. If addHeaderView is
- called more than once, the views will appear in the order they were
- added. Views added using this call can take focus if they want.
- 
- NOTE: Call this before calling setAdapter. This is so ListView can wrap
- the supplied cursor with one that will also account for header and footer
- views.
-v: The view to add.
-data: Data to associate with this view
-isSelectable: whether the item is selectable</comment>
-            <returntype>void</returntype>
+            <name DesignerName="SetBackgroundImage">SetBackgroundImageNew</name>
+            <comment></comment>
+            <returntype>anywheresoftware.b4a.objects.drawable.BitmapDrawable</returntype>
             <parameter>
-                <name>v</name>
-                <type>android.view.View</type>
+                <name>arg0</name>
+                <type>android.graphics.Bitmap</type>
             </parameter>
+        </method>
+        <method>
+            <name>setTranscriptMode</name>
+            <comment>Puts the list or grid into transcript mode. In this mode the list or grid
+ will always scroll to the bottom to show new items.
+transcriptMode: - 0 - disabled, 1 - normal, 2 - alwaysScroll</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
             <parameter>
-                <name>data</name>
-                <type>java.lang.Object</type>
+                <name>transcriptMode</name>
+                <type>int</type>
             </parameter>
+        </method>
+        <method>
+            <name>setSelection</name>
+            <comment>Sets the selection.
+position: the new selection</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
             <parameter>
-                <name>isSelectable</name>
+                <name>position</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setStackFromBottom</name>
+            <comment>When stack from bottom is set to true, the list fills its content
+ starting from the bottom of the view.
+stackFromBottom: true to pin the view's content to the bottom edge, false to
+            pin the view's content to the top edge</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>stackFromBottom</name>
                 <type>boolean</type>
             </parameter>
         </method>
         <method>
-            <name>IsInitialized</name>
+            <name>RequestFocus</name>
             <comment></comment>
             <returntype>boolean</returntype>
-        </method>
-        <method>
-            <name>Initialize</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>ba</name>
-                <type>anywheresoftware.b4a.BA</type>
-            </parameter>
-            <parameter>
-                <name>eventName</name>
-                <type>java.lang.String</type>
-            </parameter>
-        </method>
-        <method>
-            <name>IsFastScrollAlwaysVisible</name>
-            <comment>Returns true if the fast scroller is set to always show on this view.
-Return type: @return:true if the fast scroller will always show</comment>
-            <returntype>boolean</returntype>
-        </method>
-        <method>
-            <name>Invalidate</name>
-            <comment></comment>
-            <returntype>void</returntype>
-        </method>
-        <method>
-            <name>SetLayout</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <parameter>
-                <name>arg1</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <parameter>
-                <name>arg2</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <parameter>
-                <name>arg3</name>
-                <type Pixel="true">int</type>
-            </parameter>
         </method>
         <method>
             <name>addFooterView</name>
@@ -174,31 +255,116 @@ isSelectable: true if the footer view can be selected</comment>
             </parameter>
         </method>
         <method>
-            <name>smoothScrollToPosition</name>
-            <comment>Smooth scroll to position.
-position: the position</comment>
+            <name>addHeaderView</name>
+            <comment>Add a fixed view to appear at the top of the list. If addHeaderView is
+ called more than once, the views will appear in the order they were
+ added. Views added using this call can take focus if they want.
+ 
+ NOTE: Call this before calling setAdapter. This is so ListView can wrap
+ the supplied cursor with one that will also account for header and footer
+ views.
+v: The view to add.
+data: Data to associate with this view
+isSelectable: whether the item is selectable</comment>
             <returntype>void</returntype>
             <parameter>
-                <name>position</name>
+                <name>v</name>
+                <type>android.view.View</type>
+            </parameter>
+            <parameter>
+                <name>data</name>
+                <type>java.lang.Object</type>
+            </parameter>
+            <parameter>
+                <name>isSelectable</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setOverScrollMode</name>
+            <comment>Set the over-scroll mode for this view. Valid over-scroll modes are
+ OVER_SCROLL_ALWAYS (default), OVER_SCROLL_IF_CONTENT_SCROLLS (allow
+ over-scrolling only if the view content is larger than the container), or
+ OVER_SCROLL_NEVER. Setting the over-scroll mode of a view will have an
+ effect only if the view is capable of scrolling.
+mode: OVER_SCROLL_ALWAYS, OVER_SCROLL_IF_CONTENT_SCROLLS,
+            OVER_SCROLL_NEVER</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>mode</name>
                 <type>int</type>
             </parameter>
         </method>
         <method>
-            <name>DesignerCreateView</name>
+            <name>setEmptyView</name>
+            <comment>Sets the view to show if the adapter is empty.
+emptyView: the new empty view</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>emptyView</name>
+                <type>android.view.View</type>
+            </parameter>
+        </method>
+        <method>
+            <name>BringToFront</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>SendToBack</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>setDivider</name>
+            <comment>Sets the divider.
+divider: the new divider</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>divider</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setDividerHeight</name>
+            <comment>Sets the divider height.
+height: the new divider height</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>height</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>SetVisibleAnimated</name>
             <comment></comment>
             <returntype>void</returntype>
             <parameter>
-                <name>paramPanelWrapper</name>
-                <type>anywheresoftware.b4a.objects.PanelWrapper</type>
+                <name>arg0</name>
+                <type>int</type>
             </parameter>
             <parameter>
-                <name>paramLabelWrapper</name>
-                <type>anywheresoftware.b4a.objects.LabelWrapper</type>
+                <name>arg1</name>
+                <type>boolean</type>
             </parameter>
+        </method>
+        <method>
+            <name>setFastScrollAlwaysVisible</name>
+            <comment>Set whether or not the fast scroller should always be shown in place of
+ the standard scroll bars.
+alwaysShow: boolean: true if the fast scroller should always be displayed,
+            false otherwise</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
             <parameter>
-                <name>paramMap</name>
-                <type>anywheresoftware.b4a.objects.collections.Map</type>
+                <name>alwaysShow</name>
+                <type>boolean</type>
             </parameter>
+        </method>
+        <method>
+            <name>IsFastScrollEnabled</name>
+            <comment>Returns true if the fast scroller is enabled.
+Return type: @return:true if fast scroll is enabled, false otherwise</comment>
+            <returntype>boolean</returntype>
         </method>
         <method>
             <name>SetColorAnimated</name>
@@ -218,14 +384,49 @@ position: the position</comment>
             </parameter>
         </method>
         <method>
-            <name>smoothScrollByOffset</name>
-            <comment>Smooth scroll by offset.
-offset: the offset</comment>
-            <returntype>void</returntype>
+            <name>setDrawSelectorOnTop</name>
+            <comment>Controls whether the selection highlight drawable should be drawn on top
+ of the item or behind it.
+onTop: If true, the selector will be drawn on the item it is
+            highlighting. The default is false.</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
             <parameter>
-                <name>offset</name>
-                <type>int</type>
+                <name>onTop</name>
+                <type>boolean</type>
             </parameter>
+        </method>
+        <method>
+            <name>setOverscrollHeader</name>
+            <comment>Sets the overscroll header.
+header: the new overscroll header</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>header</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setSelector</name>
+            <comment>Sets the selector.
+sel: the new selector</comment>
+            <returntype>com.salvadorjhai.widgets.JSListView2</returntype>
+            <parameter>
+                <name>sel</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+        </method>
+        <method>
+            <name>Invalidate</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>isStackFromBottom</name>
+            <comment>Indicates whether the content of this view is pinned to, or stacked from,
+ the bottom edge.
+Return type: @return:true if the content is stacked from the bottom edge, false
+         otherwise</comment>
+            <returntype>boolean</returntype>
         </method>
         <method>
             <name>SetLayoutAnimated</name>
@@ -252,175 +453,18 @@ offset: the offset</comment>
                 <type Pixel="true">int</type>
             </parameter>
         </method>
-        <method>
-            <name>SetVisibleAnimated</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>int</type>
-            </parameter>
-            <parameter>
-                <name>arg1</name>
-                <type>boolean</type>
-            </parameter>
-        </method>
-        <method>
-            <name>SendToBack</name>
-            <comment></comment>
-            <returntype>void</returntype>
-        </method>
-        <property>
-            <name>CacheColorHint</name>
-            <parameter>
-                <name>color</name>
-                <type>int</type>
-            </parameter>
-            <comment>When set to a non-zero value, the cache color hint indicates that this list is always drawn on top of a solid, single-color, opaque background. Zero means that what's behind this object is translucent (non solid) or is not made of a single color.</comment>
-        </property>
-        <property>
-            <name>Enabled</name>
-            <returntype>boolean</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>boolean</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>Divider</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
-            <parameter>
-                <name>divider</name>
-                <type>android.graphics.drawable.Drawable</type>
-            </parameter>
-            <comment>Gets the divider.</comment>
-        </property>
-        <property>
-            <name>DividerHeight</name>
-            <returntype>int</returntype>
-            <parameter>
-                <name>height</name>
-                <type>int</type>
-            </parameter>
-            <comment>Gets the divider height.</comment>
-        </property>
-        <property>
-            <name>Visible</name>
-            <returntype>boolean</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>boolean</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>HeaderDividersEnabled</name>
-            <parameter>
-                <name>headerDividersEnabled</name>
-                <type>boolean</type>
-            </parameter>
-            <comment>Sets the header dividers enabled.</comment>
-        </property>
-        <property>
-            <name>Background</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>android.graphics.drawable.Drawable</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>FooterDividersEnabled</name>
-            <parameter>
-                <name>footerDividersEnabled</name>
-                <type>boolean</type>
-            </parameter>
-            <comment>Sets the footer dividers enabled.</comment>
-        </property>
-        <property>
-            <name>EmptyView</name>
-            <returntype>android.view.View</returntype>
-            <parameter>
-                <name>emptyView</name>
-                <type>android.view.View</type>
-            </parameter>
-            <comment>When the current adapter is empty, the AdapterView can display a special view
- call the empty view. The empty view is used to provide feedback to the user
- that no data is available in this AdapterView.</comment>
-        </property>
-        <property>
-            <name>OverScrollMode</name>
-            <returntype>int</returntype>
-            <parameter>
-                <name>mode</name>
-                <type>int</type>
-            </parameter>
-            <comment>Returns the over-scroll mode for this view. The result will be one of OVER_SCROLL_ALWAYS (default), OVER_SCROLL_IF_CONTENT_SCROLLS (allow over-scrolling only if the view content is larger than the container), or OVER_SCROLL_NEVER.</comment>
-        </property>
         <property>
             <name>ItemsCanFocus</name>
             <returntype>boolean</returntype>
             <comment>Gets the items can focus.</comment>
         </property>
         <property>
-            <name>Tag</name>
-            <returntype>java.lang.Object</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>java.lang.Object</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>Width</name>
+            <name>OverScrollMode</name>
             <returntype>int</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>FastScrollAlwaysVisible</name>
-            <parameter>
-                <name>alwaysShow</name>
-                <type>boolean</type>
-            </parameter>
-            <comment>Set whether or not the fast scroller should always be shown in place of the standard scroll bars.</comment>
-        </property>
-        <property>
-            <name>Top</name>
-            <returntype>int</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>Parent</name>
-            <returntype>java.lang.Object</returntype>
-            <comment></comment>
-        </property>
-        <property>
-            <name>OverscrollFooter</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
-            <parameter>
-                <name>footer</name>
-                <type>android.graphics.drawable.Drawable</type>
-            </parameter>
-            <comment>Gets the overscroll footer.</comment>
-        </property>
-        <property>
-            <name>Height</name>
-            <returntype>int</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <comment></comment>
+            <comment>Returns the over-scroll mode for this view. The result will be one of
+ OVER_SCROLL_ALWAYS (default), OVER_SCROLL_IF_CONTENT_SCROLLS (allow
+ over-scrolling only if the view content is larger than the container), or
+ OVER_SCROLL_NEVER.</comment>
         </property>
         <property>
             <name>Left</name>
@@ -432,6 +476,20 @@ offset: the offset</comment>
             <comment></comment>
         </property>
         <property>
+            <name>Background</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Parent</name>
+            <returntype>java.lang.Object</returntype>
+            <comment></comment>
+        </property>
+        <property>
             <name>Color</name>
             <parameter>
                 <name>arg0</name>
@@ -440,30 +498,13 @@ offset: the offset</comment>
             <comment></comment>
         </property>
         <property>
-            <name>OverscrollHeader</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
+            <name>Enabled</name>
+            <returntype>boolean</returntype>
             <parameter>
-                <name>header</name>
-                <type>android.graphics.drawable.Drawable</type>
-            </parameter>
-            <comment>Gets the overscroll header.</comment>
-        </property>
-        <property>
-            <name>FastScrollEnabled</name>
-            <parameter>
-                <name>enabled</name>
+                <name>arg0</name>
                 <type>boolean</type>
             </parameter>
-            <comment>Specifies whether fast scrolling is enabled or disabled.</comment>
-        </property>
-        <property>
-            <name>Selector</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
-            <parameter>
-                <name>sel</name>
-                <type>android.graphics.drawable.Drawable</type>
-            </parameter>
-            <comment>Gets the selector.</comment>
+            <comment></comment>
         </property>
         <property>
             <name>Adapter</name>
@@ -472,29 +513,130 @@ offset: the offset</comment>
                 <name>adapter</name>
                 <type>java.lang.Object</type>
             </parameter>
-            <comment>Get JSCursorAdapter or JSListAdapter</comment>
+            <comment>Get JSCursorAdapter or JSListAdapter.</comment>
         </property>
         <property>
-            <name>Selection</name>
+            <name>DividerHeight</name>
+            <returntype>int</returntype>
+            <comment>Gets the divider height.</comment>
+        </property>
+        <property>
+            <name>Top</name>
+            <returntype>int</returntype>
             <parameter>
-                <name>position</name>
-                <type>int</type>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
             </parameter>
-            <comment>Sets the selection.</comment>
+            <comment></comment>
+        </property>
+        <property>
+            <name>OverscrollHeader</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <comment>Gets the overscroll header.</comment>
+        </property>
+        <property>
+            <name>Visible</name>
+            <returntype>boolean</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>boolean</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Padding</name>
+            <returntype>int[]</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int[]</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Height</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>TranscriptMode</name>
+            <returntype>int</returntype>
+            <comment>Returns the current transcript mode.</comment>
+        </property>
+        <property>
+            <name>Tag</name>
+            <returntype>java.lang.Object</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>java.lang.Object</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Divider</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <comment>Gets the divider.</comment>
+        </property>
+        <property>
+            <name>EmptyView</name>
+            <returntype>android.view.View</returntype>
+            <comment>When the current adapter is empty, the AdapterView can display a special
+ view call the empty view. The empty view is used to provide feedback to
+ the user that no data is available in this AdapterView.</comment>
+        </property>
+        <property>
+            <name>Width</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>OverscrollFooter</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <comment>Gets the overscroll footer.</comment>
+        </property>
+        <property>
+            <name>Selector</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <comment>Gets the selector.</comment>
         </property>
         <field>
-            <name>OVER_SCROLL_NEVER</name>
-            <comment></comment>
+            <name>TRANSCRIPT_MODE_DISABLED</name>
+            <comment>The list will automatically scroll to the bottom, no matter what items
+ are currently visible.</comment>
             <returntype>int</returntype>
         </field>
         <field>
-            <name>OVER_SCROLL_IF_CONTENT_SCROLLS</name>
-            <comment></comment>
+            <name>TRANSCRIPT_MODE_ALWAYSSCROLL</name>
+            <comment>The list will automatically scroll to the bottom when a data set change
+ notification is received and only if the last item is already visible on
+ screen.</comment>
+            <returntype>int</returntype>
+        </field>
+        <field>
+            <name>TRANSCRIPT_MODE_NORMAL</name>
+            <comment>Disables transcript mode. This is the default value.</comment>
+            <returntype>int</returntype>
+        </field>
+        <field>
+            <name>OVER_SCROLL_NEVER</name>
+            <comment>The over scroll never.</comment>
             <returntype>int</returntype>
         </field>
         <field>
             <name>OVER_SCROLL_ALWAYS</name>
-            <comment></comment>
+            <comment>The over scroll always.</comment>
+            <returntype>int</returntype>
+        </field>
+        <field>
+            <name>OVER_SCROLL_IF_CONTENT_SCROLLS</name>
+            <comment>The over scroll if content scrolls.</comment>
             <returntype>int</returntype>
         </field>
     </class>
@@ -511,18 +653,240 @@ offset: the offset</comment>
         <event>OnItemClick(view As ItemViewLayout, position As int)</event>
         <event>OnItemLongClick(view As ItemViewLayout, position As int)</event>
         <method>
+            <name>addHeaderView</name>
+            <comment>Add a fixed view to appear at the top of the list. If addHeaderView is
+ called more than once, the views will appear in the order they were
+ added. Views added using this call can take focus if they want.
+ 
+ NOTE: Call this before calling setAdapter. This is so ListView can wrap
+ the supplied cursor with one that will also account for header and footer
+ views.
+v: The view to add.
+data: Data to associate with this view
+isSelectable: whether the item is selectable</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>v</name>
+                <type>android.view.View</type>
+            </parameter>
+            <parameter>
+                <name>data</name>
+                <type>java.lang.Object</type>
+            </parameter>
+            <parameter>
+                <name>isSelectable</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>DesignerCreateView</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>paramPanelWrapper</name>
+                <type>anywheresoftware.b4a.objects.PanelWrapper</type>
+            </parameter>
+            <parameter>
+                <name>paramLabelWrapper</name>
+                <type>anywheresoftware.b4a.objects.LabelWrapper</type>
+            </parameter>
+            <parameter>
+                <name>paramMap</name>
+                <type>anywheresoftware.b4a.objects.collections.Map</type>
+            </parameter>
+        </method>
+        <method>
+            <name>ItemRemoveAt</name>
+            <comment>Item remove at.
+position: the position</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>position</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>smoothScrollToPosition</name>
+            <comment>Smooth scroll to position.
+position: the position</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>position</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>IsInitialized</name>
+            <comment></comment>
+            <returntype>boolean</returntype>
+        </method>
+        <method>
+            <name>Initialize</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>ba</name>
+                <type>anywheresoftware.b4a.BA</type>
+            </parameter>
+            <parameter>
+                <name>eventName</name>
+                <type>java.lang.String</type>
+            </parameter>
+        </method>
+        <method>
+            <name>BringToFront</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>SetLayout</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg3</name>
+                <type Pixel="true">int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>smoothScrollByOffset</name>
+            <comment>Smooth scroll by offset.
+offset: the offset</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>offset</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>SendToBack</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>SetVisibleAnimated</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>IsFastScrollAlwaysVisible</name>
+            <comment>Returns true if the fast scroller is set to always show on this view.
+Return type: @return:true if the fast scroller will always show</comment>
+            <returntype>boolean</returntype>
+        </method>
+        <method>
+            <name>RemoveView</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>ItemAddAt</name>
+            <comment>Add item at specific position
+Index: position
+data: data</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>Index</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>data</name>
+                <type>java.lang.Object</type>
+            </parameter>
+        </method>
+        <method>
             <name>IsFastScrollEnabled</name>
             <comment>Returns true if the fast scroller is enabled.
 Return type: @return:true if fast scroll is enabled, false otherwise</comment>
             <returntype>boolean</returntype>
         </method>
         <method>
-            <name>RequestFocus</name>
+            <name>Invalidate3</name>
             <comment></comment>
-            <returntype>boolean</returntype>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg3</name>
+                <type>int</type>
+            </parameter>
         </method>
         <method>
-            <name>BringToFront</name>
+            <name>Invalidate2</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>android.graphics.Rect</type>
+            </parameter>
+        </method>
+        <method>
+            <name>SetColorAnimated</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name DesignerName="SetBackgroundImage">SetBackgroundImageNew</name>
+            <comment></comment>
+            <returntype>anywheresoftware.b4a.objects.drawable.BitmapDrawable</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>android.graphics.Bitmap</type>
+            </parameter>
+        </method>
+        <method>
+            <name>ItemAdd</name>
+            <comment>Item add
+data: the data</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>data</name>
+                <type>java.lang.Object</type>
+            </parameter>
+        </method>
+        <method>
+            <name>Invalidate</name>
             <comment></comment>
             <returntype>void</returntype>
         </method>
@@ -542,219 +906,9 @@ data: the new data</comment>
             </parameter>
         </method>
         <method>
-            <name>RemoveView</name>
-            <comment></comment>
-            <returntype>void</returntype>
-        </method>
-        <method>
-            <name>SetBackgroundImage</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>android.graphics.Bitmap</type>
-            </parameter>
-        </method>
-        <method>
-            <name>Invalidate3</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>int</type>
-            </parameter>
-            <parameter>
-                <name>arg1</name>
-                <type>int</type>
-            </parameter>
-            <parameter>
-                <name>arg2</name>
-                <type>int</type>
-            </parameter>
-            <parameter>
-                <name>arg3</name>
-                <type>int</type>
-            </parameter>
-        </method>
-        <method>
             <name>ItemClearAll</name>
             <comment>Clear all item on the listview</comment>
             <returntype>void</returntype>
-        </method>
-        <method>
-            <name>Invalidate2</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>android.graphics.Rect</type>
-            </parameter>
-        </method>
-        <method>
-            <name>addHeaderView</name>
-            <comment>Add a fixed view to appear at the top of the list. If addHeaderView is
- called more than once, the views will appear in the order they were
- added. Views added using this call can take focus if they want.
- 
- NOTE: Call this before calling setAdapter. This is so ListView can wrap
- the supplied cursor with one that will also account for header and footer
- views.
-v: The view to add.
-data: Data to associate with this view
-isSelectable: whether the item is selectable</comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>v</name>
-                <type>android.view.View</type>
-            </parameter>
-            <parameter>
-                <name>data</name>
-                <type>java.lang.Object</type>
-            </parameter>
-            <parameter>
-                <name>isSelectable</name>
-                <type>boolean</type>
-            </parameter>
-        </method>
-        <method>
-            <name>IsInitialized</name>
-            <comment></comment>
-            <returntype>boolean</returntype>
-        </method>
-        <method>
-            <name>ItemAdd</name>
-            <comment>Item add
-data: the data</comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>data</name>
-                <type>java.lang.Object</type>
-            </parameter>
-        </method>
-        <method>
-            <name>Initialize</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>ba</name>
-                <type>anywheresoftware.b4a.BA</type>
-            </parameter>
-            <parameter>
-                <name>eventName</name>
-                <type>java.lang.String</type>
-            </parameter>
-        </method>
-        <method>
-            <name>IsFastScrollAlwaysVisible</name>
-            <comment>Returns true if the fast scroller is set to always show on this view.
-Return type: @return:true if the fast scroller will always show</comment>
-            <returntype>boolean</returntype>
-        </method>
-        <method>
-            <name>Invalidate</name>
-            <comment></comment>
-            <returntype>void</returntype>
-        </method>
-        <method>
-            <name>SetLayout</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <parameter>
-                <name>arg1</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <parameter>
-                <name>arg2</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <parameter>
-                <name>arg3</name>
-                <type Pixel="true">int</type>
-            </parameter>
-        </method>
-        <method>
-            <name>addFooterView</name>
-            <comment>Add a fixed view to appear at the bottom of the list. If addFooterView is
- called more than once, the views will appear in the order they were
- added. Views added using this call can take focus if they want.
- 
- NOTE: Call this before calling setAdapter. This is so ListView can wrap
- the supplied cursor with one that will also account for header and footer
- views.
-v: The view to add.
-data: Data to associate with this view
-isSelectable: true if the footer view can be selected</comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>v</name>
-                <type>android.view.View</type>
-            </parameter>
-            <parameter>
-                <name>data</name>
-                <type>java.lang.Object</type>
-            </parameter>
-            <parameter>
-                <name>isSelectable</name>
-                <type>boolean</type>
-            </parameter>
-        </method>
-        <method>
-            <name>smoothScrollToPosition</name>
-            <comment>Smooth scroll to position.
-position: the position</comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>position</name>
-                <type>int</type>
-            </parameter>
-        </method>
-        <method>
-            <name>DesignerCreateView</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>paramPanelWrapper</name>
-                <type>anywheresoftware.b4a.objects.PanelWrapper</type>
-            </parameter>
-            <parameter>
-                <name>paramLabelWrapper</name>
-                <type>anywheresoftware.b4a.objects.LabelWrapper</type>
-            </parameter>
-            <parameter>
-                <name>paramMap</name>
-                <type>anywheresoftware.b4a.objects.collections.Map</type>
-            </parameter>
-        </method>
-        <method>
-            <name>SetColorAnimated</name>
-            <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>int</type>
-            </parameter>
-            <parameter>
-                <name>arg1</name>
-                <type>int</type>
-            </parameter>
-            <parameter>
-                <name>arg2</name>
-                <type>int</type>
-            </parameter>
-        </method>
-        <method>
-            <name>smoothScrollByOffset</name>
-            <comment>Smooth scroll by offset.
-offset: the offset</comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>offset</name>
-                <type>int</type>
-            </parameter>
         </method>
         <method>
             <name>SetLayoutAnimated</name>
@@ -782,109 +936,36 @@ offset: the offset</comment>
             </parameter>
         </method>
         <method>
-            <name>SetVisibleAnimated</name>
+            <name>RequestFocus</name>
             <comment></comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>int</type>
-            </parameter>
-            <parameter>
-                <name>arg1</name>
-                <type>boolean</type>
-            </parameter>
+            <returntype>boolean</returntype>
         </method>
         <method>
-            <name>ItemRemoveAt</name>
-            <comment>Item remove at.
-position: the position</comment>
+            <name>addFooterView</name>
+            <comment>Add a fixed view to appear at the bottom of the list. If addFooterView is
+ called more than once, the views will appear in the order they were
+ added. Views added using this call can take focus if they want.
+ 
+ NOTE: Call this before calling setAdapter. This is so ListView can wrap
+ the supplied cursor with one that will also account for header and footer
+ views.
+v: The view to add.
+data: Data to associate with this view
+isSelectable: true if the footer view can be selected</comment>
             <returntype>void</returntype>
             <parameter>
-                <name>position</name>
-                <type>int</type>
-            </parameter>
-        </method>
-        <method>
-            <name>ItemAddAt</name>
-            <comment>Add item at specific position
-Index: position
-data: data</comment>
-            <returntype>void</returntype>
-            <parameter>
-                <name>Index</name>
-                <type>int</type>
+                <name>v</name>
+                <type>android.view.View</type>
             </parameter>
             <parameter>
                 <name>data</name>
                 <type>java.lang.Object</type>
             </parameter>
+            <parameter>
+                <name>isSelectable</name>
+                <type>boolean</type>
+            </parameter>
         </method>
-        <method>
-            <name>SendToBack</name>
-            <comment></comment>
-            <returntype>void</returntype>
-        </method>
-        <property>
-            <name>CacheColorHint</name>
-            <parameter>
-                <name>color</name>
-                <type>int</type>
-            </parameter>
-            <comment>When set to a non-zero value, the cache color hint indicates that this list is always drawn on top of a solid, single-color, opaque background. Zero means that what's behind this object is translucent (non solid) or is not made of a single color.</comment>
-        </property>
-        <property>
-            <name>Enabled</name>
-            <returntype>boolean</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>boolean</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>Divider</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
-            <parameter>
-                <name>divider</name>
-                <type>android.graphics.drawable.Drawable</type>
-            </parameter>
-            <comment>Gets the divider.</comment>
-        </property>
-        <property>
-            <name>DividerHeight</name>
-            <returntype>int</returntype>
-            <parameter>
-                <name>height</name>
-                <type>int</type>
-            </parameter>
-            <comment>Gets the divider height.</comment>
-        </property>
-        <property>
-            <name>Visible</name>
-            <returntype>boolean</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>boolean</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>HeaderDividersEnabled</name>
-            <parameter>
-                <name>headerDividersEnabled</name>
-                <type>boolean</type>
-            </parameter>
-            <comment>Sets the header dividers enabled.</comment>
-        </property>
-        <property>
-            <name>Background</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>android.graphics.drawable.Drawable</type>
-            </parameter>
-            <comment></comment>
-        </property>
         <property>
             <name>FooterDividersEnabled</name>
             <parameter>
@@ -894,67 +975,7 @@ data: data</comment>
             <comment>Sets the footer dividers enabled.</comment>
         </property>
         <property>
-            <name>EmptyView</name>
-            <returntype>android.view.View</returntype>
-            <parameter>
-                <name>emptyView</name>
-                <type>android.view.View</type>
-            </parameter>
-            <comment>When the current adapter is empty, the AdapterView can display a special view
- call the empty view. The empty view is used to provide feedback to the user
- that no data is available in this AdapterView.</comment>
-        </property>
-        <property>
-            <name>DataSource</name>
-            <returntype>anywheresoftware.b4a.objects.collections.List</returntype>
-            <parameter>
-                <name>data</name>
-                <type>anywheresoftware.b4a.objects.collections.List</type>
-            </parameter>
-            <comment>Get data source.</comment>
-        </property>
-        <property>
-            <name>OverScrollMode</name>
-            <returntype>int</returntype>
-            <parameter>
-                <name>mode</name>
-                <type>int</type>
-            </parameter>
-            <comment>Returns the over-scroll mode for this view. The result will be one of OVER_SCROLL_ALWAYS (default), OVER_SCROLL_IF_CONTENT_SCROLLS (allow over-scrolling only if the view content is larger than the container), or OVER_SCROLL_NEVER.</comment>
-        </property>
-        <property>
-            <name>ItemsCanFocus</name>
-            <returntype>boolean</returntype>
-            <comment>Gets the items can focus.</comment>
-        </property>
-        <property>
-            <name>Tag</name>
-            <returntype>java.lang.Object</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type>java.lang.Object</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>Width</name>
-            <returntype>int</returntype>
-            <parameter>
-                <name>arg0</name>
-                <type Pixel="true">int</type>
-            </parameter>
-            <comment></comment>
-        </property>
-        <property>
-            <name>FastScrollAlwaysVisible</name>
-            <parameter>
-                <name>alwaysShow</name>
-                <type>boolean</type>
-            </parameter>
-            <comment>Set whether or not the fast scroller should always be shown in place of the standard scroll bars.</comment>
-        </property>
-        <property>
-            <name>Top</name>
+            <name>Left</name>
             <returntype>int</returntype>
             <parameter>
                 <name>arg0</name>
@@ -968,13 +989,46 @@ data: data</comment>
             <comment></comment>
         </property>
         <property>
-            <name>OverscrollFooter</name>
-            <returntype>android.graphics.drawable.Drawable</returntype>
+            <name>Selection</name>
             <parameter>
-                <name>footer</name>
-                <type>android.graphics.drawable.Drawable</type>
+                <name>position</name>
+                <type>int</type>
             </parameter>
-            <comment>Gets the overscroll footer.</comment>
+            <comment>Sets the selection.</comment>
+        </property>
+        <property>
+            <name>CacheColorHint</name>
+            <parameter>
+                <name>color</name>
+                <type>int</type>
+            </parameter>
+            <comment>When set to a non-zero value, the cache color hint indicates that this list is always drawn on top of a solid, single-color, opaque background. Zero means that what's behind this object is translucent (non solid) or is not made of a single color.</comment>
+        </property>
+        <property>
+            <name>FastScrollEnabled</name>
+            <parameter>
+                <name>enabled</name>
+                <type>boolean</type>
+            </parameter>
+            <comment>Specifies whether fast scrolling is enabled or disabled.</comment>
+        </property>
+        <property>
+            <name>Visible</name>
+            <returntype>boolean</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>boolean</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Padding</name>
+            <returntype>int[]</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int[]</type>
+            </parameter>
+            <comment></comment>
         </property>
         <property>
             <name>Height</name>
@@ -986,7 +1040,7 @@ data: data</comment>
             <comment></comment>
         </property>
         <property>
-            <name>Left</name>
+            <name>Width</name>
             <returntype>int</returntype>
             <parameter>
                 <name>arg0</name>
@@ -995,10 +1049,94 @@ data: data</comment>
             <comment></comment>
         </property>
         <property>
+            <name>Selector</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <parameter>
+                <name>sel</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+            <comment>Gets the selector.</comment>
+        </property>
+        <property>
+            <name>ItemsCanFocus</name>
+            <returntype>boolean</returntype>
+            <comment>Gets the items can focus.</comment>
+        </property>
+        <property>
+            <name>FastScrollAlwaysVisible</name>
+            <parameter>
+                <name>alwaysShow</name>
+                <type>boolean</type>
+            </parameter>
+            <comment>Set whether or not the fast scroller should always be shown in place of the standard scroll bars.</comment>
+        </property>
+        <property>
+            <name>OverScrollMode</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>mode</name>
+                <type>int</type>
+            </parameter>
+            <comment>Returns the over-scroll mode for this view. The result will be one of OVER_SCROLL_ALWAYS (default), OVER_SCROLL_IF_CONTENT_SCROLLS (allow over-scrolling only if the view content is larger than the container), or OVER_SCROLL_NEVER.</comment>
+        </property>
+        <property>
+            <name>Background</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>HeaderDividersEnabled</name>
+            <parameter>
+                <name>headerDividersEnabled</name>
+                <type>boolean</type>
+            </parameter>
+            <comment>Sets the header dividers enabled.</comment>
+        </property>
+        <property>
             <name>Color</name>
             <parameter>
                 <name>arg0</name>
                 <type>int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Enabled</name>
+            <returntype>boolean</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>boolean</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>DividerHeight</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>height</name>
+                <type>int</type>
+            </parameter>
+            <comment>Gets the divider height.</comment>
+        </property>
+        <property>
+            <name>DataSource</name>
+            <returntype>anywheresoftware.b4a.objects.collections.List</returntype>
+            <parameter>
+                <name>data</name>
+                <type>anywheresoftware.b4a.objects.collections.List</type>
+            </parameter>
+            <comment>Get data source.</comment>
+        </property>
+        <property>
+            <name>Top</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
             </parameter>
             <comment></comment>
         </property>
@@ -1012,29 +1150,42 @@ data: data</comment>
             <comment>Gets the overscroll header.</comment>
         </property>
         <property>
-            <name>FastScrollEnabled</name>
+            <name>Tag</name>
+            <returntype>java.lang.Object</returntype>
             <parameter>
-                <name>enabled</name>
-                <type>boolean</type>
+                <name>arg0</name>
+                <type>java.lang.Object</type>
             </parameter>
-            <comment>Specifies whether fast scrolling is enabled or disabled.</comment>
+            <comment></comment>
         </property>
         <property>
-            <name>Selector</name>
+            <name>Divider</name>
             <returntype>android.graphics.drawable.Drawable</returntype>
             <parameter>
-                <name>sel</name>
+                <name>divider</name>
                 <type>android.graphics.drawable.Drawable</type>
             </parameter>
-            <comment>Gets the selector.</comment>
+            <comment>Gets the divider.</comment>
         </property>
         <property>
-            <name>Selection</name>
+            <name>EmptyView</name>
+            <returntype>android.view.View</returntype>
             <parameter>
-                <name>position</name>
-                <type>int</type>
+                <name>emptyView</name>
+                <type>android.view.View</type>
             </parameter>
-            <comment>Sets the selection.</comment>
+            <comment>When the current adapter is empty, the AdapterView can display a special view
+ call the empty view. The empty view is used to provide feedback to the user
+ that no data is available in this AdapterView.</comment>
+        </property>
+        <property>
+            <name>OverscrollFooter</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <parameter>
+                <name>footer</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+            <comment>Gets the overscroll footer.</comment>
         </property>
         <field>
             <name>OVER_SCROLL_NEVER</name>
@@ -1042,12 +1193,12 @@ data: data</comment>
             <returntype>int</returntype>
         </field>
         <field>
-            <name>OVER_SCROLL_IF_CONTENT_SCROLLS</name>
+            <name>OVER_SCROLL_ALWAYS</name>
             <comment></comment>
             <returntype>int</returntype>
         </field>
         <field>
-            <name>OVER_SCROLL_ALWAYS</name>
+            <name>OVER_SCROLL_IF_CONTENT_SCROLLS</name>
             <comment></comment>
             <returntype>int</returntype>
         </field>
@@ -1095,6 +1246,15 @@ id: </comment>
             </parameter>
         </method>
         <property>
+            <name>Container</name>
+            <returntype>android.view.ViewGroup</returntype>
+            <parameter>
+                <name>container</name>
+                <type>android.view.ViewGroup</type>
+            </parameter>
+            <comment>Gets the container.</comment>
+        </property>
+        <property>
             <name>Height</name>
             <returntype>int</returntype>
             <parameter>
@@ -1112,16 +1272,516 @@ id: </comment>
             </parameter>
             <comment>Gets the width.</comment>
         </property>
-        <property>
-            <name>Container</name>
-            <returntype>android.view.ViewGroup</returntype>
-            <parameter>
-                <name>container</name>
-                <type>android.view.ViewGroup</type>
-            </parameter>
-            <comment>Gets the container.</comment>
-        </property>
     </class>
-    <version>0.9</version>
+    <class>
+        <name>com.salvadorjhai.widgets.JSGridView</name>
+        <shortname>JSGridView</shortname>
+        <comment>JSGridView base on Android GridView. You can use designer to create your
+ item layout, just inflate the item layout using panel LoadLayout. Use this
+ JSGridView together with JSListAdapter or JSCursorAdapter</comment>
+        <objectwrapper>android.widget.GridView</objectwrapper>
+        <owner>activity</owner>
+        <event>OnItemClick(view As JSViewHolder, position As int)</event>
+        <event>OnItemLongClick(view As JSViewHolder, position As int)</event>
+        <method>
+            <name>DesignerCreateView</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>paramPanelWrapper</name>
+                <type>anywheresoftware.b4a.objects.PanelWrapper</type>
+            </parameter>
+            <parameter>
+                <name>paramLabelWrapper</name>
+                <type>anywheresoftware.b4a.objects.LabelWrapper</type>
+            </parameter>
+            <parameter>
+                <name>paramMap</name>
+                <type>anywheresoftware.b4a.objects.collections.Map</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setColumnWidth</name>
+            <comment>Sets the column width.
+columnWidth: the column width
+Return type: @return:the JS grid view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>columnWidth</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>smoothScrollToPosition</name>
+            <comment>Smooth scroll to position.
+position: the position</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>position</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>IsInitialized</name>
+            <comment></comment>
+            <returntype>boolean</returntype>
+        </method>
+        <method>
+            <name>Initialize</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>ba</name>
+                <type>anywheresoftware.b4a.BA</type>
+            </parameter>
+            <parameter>
+                <name>eventName</name>
+                <type>java.lang.String</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setEmptyView</name>
+            <comment>Sets the view to show if the adapter is empty.
+emptyView: the new empty view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>emptyView</name>
+                <type>android.view.View</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setHorizontalSpacing</name>
+            <comment>Set the amount of horizontal (x) spacing to place between each item
+ in the grid.
+horizontalSpacing: the horizontal spacing
+Return type: @return:the JS grid view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>horizontalSpacing</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>BringToFront</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>SetLayout</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg3</name>
+                <type Pixel="true">int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>smoothScrollByOffset</name>
+            <comment>Smooth scroll by offset.
+offset: the offset</comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>offset</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setNumColumns</name>
+            <comment>Sets the num columns.
+numColumns: the num columns
+Return type: @return:the JS grid view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>numColumns</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>SendToBack</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>SetVisibleAnimated</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>IsFastScrollAlwaysVisible</name>
+            <comment>Returns true if the fast scroller is set to always show on this view.
+Return type: @return:true if the fast scroller will always show</comment>
+            <returntype>boolean</returntype>
+        </method>
+        <method>
+            <name>setFastScrollAlwaysVisible</name>
+            <comment>Set whether or not the fast scroller should always be shown in place of the standard scroll bars.
+alwaysShow: boolean: true if the fast scroller should always be displayed, false otherwise</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>alwaysShow</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>RemoveView</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>IsFastScrollEnabled</name>
+            <comment>Returns true if the fast scroller is enabled.
+Return type: @return:true if fast scroll is enabled, false otherwise</comment>
+            <returntype>boolean</returntype>
+        </method>
+        <method>
+            <name>setFastScrollEnabled</name>
+            <comment>Specifies whether fast scrolling is enabled or disabled.
+enabled: boolean: true to enable fast scrolling, false otherwise</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>enabled</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setCacheColorHint</name>
+            <comment>When set to a non-zero value, the cache color hint indicates that this list is always drawn on top of a solid, single-color, opaque background. Zero means that what's behind this object is translucent (non solid) or is not made of a single color.
+color: Color</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>color</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>Invalidate3</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg3</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>Invalidate2</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>android.graphics.Rect</type>
+            </parameter>
+        </method>
+        <method>
+            <name>SetColorAnimated</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name DesignerName="SetBackgroundImage">SetBackgroundImageNew</name>
+            <comment></comment>
+            <returntype>anywheresoftware.b4a.objects.drawable.BitmapDrawable</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>android.graphics.Bitmap</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setSelection</name>
+            <comment>Sets the selection.
+position: the new selection
+Return type: @return:the JS grid view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>position</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setDrawSelectorOnTop</name>
+            <comment>Controls whether the selection highlight drawable should be drawn on top of the item or
+ behind it.
+onTop: If true, the selector will be drawn on the item it is highlighting. The default
+        is false.</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>onTop</name>
+                <type>boolean</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setVerticalSpacing</name>
+            <comment>Set the amount of vertical (y) spacing to place between each item
+ in the grid.
+verticalSpacing: the vertical spacing
+Return type: @return:the JS grid view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>verticalSpacing</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setStretchMode</name>
+            <comment>Control how items are stretched to fill their space.
+stretchMode: the stretch mode
+Return type: @return:the JS grid view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>stretchMode</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>setSelector</name>
+            <comment>Sets the selector.
+sel: the new selector</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>sel</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+        </method>
+        <method>
+            <name>Invalidate</name>
+            <comment></comment>
+            <returntype>void</returntype>
+        </method>
+        <method>
+            <name>setGravity</name>
+            <comment>Describes how the child views are horizontally aligned. Defaults to Gravity.LEFT
+gravity: the gravity
+Return type: @return:the JS grid view</comment>
+            <returntype>com.salvadorjhai.widgets.JSGridView</returntype>
+            <parameter>
+                <name>gravity</name>
+                <type>int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>SetLayoutAnimated</name>
+            <comment></comment>
+            <returntype>void</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <parameter>
+                <name>arg1</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg2</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg3</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <parameter>
+                <name>arg4</name>
+                <type Pixel="true">int</type>
+            </parameter>
+        </method>
+        <method>
+            <name>RequestFocus</name>
+            <comment></comment>
+            <returntype>boolean</returntype>
+        </method>
+        <property>
+            <name>Left</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Background</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>android.graphics.drawable.Drawable</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Parent</name>
+            <returntype>java.lang.Object</returntype>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Color</name>
+            <parameter>
+                <name>arg0</name>
+                <type>int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Enabled</name>
+            <returntype>boolean</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>boolean</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Adapter</name>
+            <returntype>java.lang.Object</returntype>
+            <parameter>
+                <name>adapter</name>
+                <type>java.lang.Object</type>
+            </parameter>
+            <comment>Get JSCursorAdapter or JSListAdapter.</comment>
+        </property>
+        <property>
+            <name>NumColumns</name>
+            <returntype>int</returntype>
+            <comment>Gets the num columns.</comment>
+        </property>
+        <property>
+            <name>Top</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>StretchMode</name>
+            <returntype>int</returntype>
+            <comment>Gets the stretch mode.</comment>
+        </property>
+        <property>
+            <name>Visible</name>
+            <returntype>boolean</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>boolean</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Padding</name>
+            <returntype>int[]</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>int[]</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Height</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Tag</name>
+            <returntype>java.lang.Object</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type>java.lang.Object</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>EmptyView</name>
+            <returntype>android.view.View</returntype>
+            <comment>When the current adapter is empty, the AdapterView can display a special view
+ call the empty view. The empty view is used to provide feedback to the user
+ that no data is available in this AdapterView.</comment>
+        </property>
+        <property>
+            <name>Width</name>
+            <returntype>int</returntype>
+            <parameter>
+                <name>arg0</name>
+                <type Pixel="true">int</type>
+            </parameter>
+            <comment></comment>
+        </property>
+        <property>
+            <name>Selector</name>
+            <returntype>android.graphics.drawable.Drawable</returntype>
+            <comment>Gets the selector.</comment>
+        </property>
+        <field>
+            <name>STRETCH_MODE_COLUMN_WIDTH</name>
+            <comment>Stretches columns.</comment>
+            <returntype>int</returntype>
+        </field>
+        <field>
+            <name>STRETCH_MODE_SPACING_UNIFORM</name>
+            <comment>Stretches the spacing between columns. The spacing is uniform.</comment>
+            <returntype>int</returntype>
+        </field>
+        <field>
+            <name>STRETCH_MODE_NO_STRETCH</name>
+            <comment>Disables stretching.</comment>
+            <returntype>int</returntype>
+        </field>
+        <field>
+            <name>NUM_COLUMNS_AUTO_FIT</name>
+            <comment>Creates as many columns as can fit on screen.</comment>
+            <returntype>int</returntype>
+        </field>
+        <field>
+            <name>STRETCH_MODE_SPACING</name>
+            <comment>Stretches the spacing between columns.</comment>
+            <returntype>int</returntype>
+        </field>
+    </class>
+    <version>1.0</version>
     <author>salvadorjhai</author>
 </root>

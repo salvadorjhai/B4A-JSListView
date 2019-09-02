@@ -1,7 +1,8 @@
-﻿Type=Activity
-Version=7
+﻿B4A=true
+Group=Default Group
 ModulesStructureVersion=1
-B4A=true
+Type=Activity
+Version=7
 @EndOfDesignText@
 #Region  Activity Attributes 
 	#FullScreen: False
@@ -57,7 +58,7 @@ Sub Activity_Create(FirstTime As Boolean)
 	JSListView1.Adapter = Adapter
 	JSListView1.FastScrollEnabled = True	
 	
-	Activity.Title = "Custom Listview 2 - Total: " & data.Size
+	Activity.Title = "Custom Listview 2 - Total: " & data.Size	
 End Sub
 
 Sub Activity_Resume

@@ -48,3 +48,8 @@ Temporary Items
 B4A/Generic Sample/Objects/
 B4A/With Button Sample/Objects/
 B4A/Generic Sample/Objects/bin/extra/opt.jar
+*.apk
+*.ap_
+*.ap_
+*.zip
+*.ap_
